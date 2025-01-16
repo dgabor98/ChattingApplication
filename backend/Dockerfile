@@ -4,4 +4,4 @@ COPY . .
 
 RUN ./mvnw clean package
 
-ENTRYPOINT ["java","-jar","target/ChatApp-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/target/backend-0.0.1-SNAPSHOT.jar"]
