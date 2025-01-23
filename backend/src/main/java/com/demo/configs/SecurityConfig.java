@@ -38,12 +38,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/register", "/login", "/logout")
-                        .permitAll() // Allow public access to /register and /login
-                        .anyRequest().authenticated() // All other endpoints require authentication
+                        .requestMatchers("/register", "/login", "/logout").permitAll()
+                        .requestMatchers("/ws/**", "/topic/**", "/queue/**", "/app/**").authenticated()
+                        .anyRequest().authenticated()
                 )
                 .logout(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(AbstractHttpConfigurer::disable)
                 .build();
